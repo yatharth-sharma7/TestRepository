@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+        <lightning:workspaceAPI aura:id="workspace"/>
+        <lightning:button label="Open Tab" onclick="{!c.openTab}"/>
+     	<lightning:button label="Close Tab" onclick="{!c.closeTab}"/>
+     <lightning:button label="Get Console URL" onclick="{! c.generateConsoleUrl }" />
+    <lightning:button label="Get All Tab Info" onclick="{! c.getAllTabInfo }" />
+    <lightning:button label="Get Enclosing Tab Id" onclick="{! c.getEnclosingTabId }" />
+    <lightning:button label="Close Focused Tab" onclick="{! c.closeFocusedTab }" />
+    <lightning:button label="Is the Focused Tab a Subtab?" onclick="{! c.isFocusedTabSubtab }" />
+
+</aura:component>

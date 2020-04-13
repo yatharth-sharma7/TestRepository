@@ -1,0 +1,26 @@
+<apex:page standardStylesheets="false" standardController="Account">
+        <apex:stylesheet value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/cssForRegistration.css')}"/>
+		<apex:includeScript value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/JavaScriptValidations.js')}"/>
+ <Html>
+    <Head>
+        <Title> Login Page</Title>
+       
+    </Head>
+    <body>
+     <div class="Login">
+        <h2 align="center">Login Page</h2>
+         <img  id="image" src="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/log-png-images.png')}"  class="img" alt="Cannot Load The Image"/>
+                  
+        <form name ="formLog" onsubmit="Validation(document.formLog.Email,document.formLog.Password)">
+            <hr/>
+            Email ID<br/>
+            <Input type ="Email" Name="Email" value="{!Account.name}" id="Email" placeholder="Enter Email"  required=""/><br/>
+            Password<br/>
+            <Input type ="password" Name="Password" id="Pass" placeholder="Password" required=""/><br/>
+            <button type ="Submit" class="logbtn" > Login </button><br/><br/>
+        <button Type ='button' class="regbtn" onclick="window.open('{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/RegistrationForm.html')}','_self')"> Not a User ? Register </button>
+        </form>
+     </div>
+    </body>
+    </Html>
+</apex:page>

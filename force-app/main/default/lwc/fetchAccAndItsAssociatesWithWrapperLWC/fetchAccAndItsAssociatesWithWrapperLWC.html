@@ -1,0 +1,115 @@
+<template>
+
+    <table class="mainTable">
+        <thead class="mainTableHeader">
+            <tr>
+                <th scope="col">
+                    <div title="Key">Account Name</div>
+                </th>
+                <th scope="col">
+                    <div title="Value">Account ID</div>
+                </th>
+                <th scope="col">
+                    <div title="Value">Rating</div>
+                </th>
+                <th scope="col">
+                    <div title="Value">Site</div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="mainTableBody">
+            <template for:each={wrapperList} for:item="keyValue">
+                <tr key={keyValue.Id}>
+                    <th scope="col">
+                        <div>{keyValue.acc.Name}</div>
+                    </th>
+                    <th scope="col">
+                        <div>{keyValue.acc.Id}</div>
+                    </th>
+                    <th scope="col">
+                        <div>{keyValue.acc.Rating}</div>
+                    </th>
+                    <th scope="col">
+                        <div>{keyValue.acc.Site}</div>
+                    </th>
+                </tr>
+
+                <tr key={keyValue.Id}>
+
+                <th>Contact details</th>
+                
+                <td colspan="3">
+                    <table class="contTable">
+                        <thead class="contTableHeader">
+                            <tr class="slds-text-title_caps">
+                                <th scope="col">
+                                    <div title="Key">Contact Name</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Value">ID</div>
+                                </th>
+                                <th scope="col">
+                                    <div title="Value">Email</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="contTableBody">
+                            <template for:each={keyValue.cont} for:item="con">
+                                <tr key={con.Id}>
+                                    <th scope="col">
+                                        <div>{con.Name}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div>{con.Id}</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div>{con.Email}</div>
+                                    </th>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </td>
+                </tr>
+
+                <tr key={keyValue.Id}>
+                    
+                    <th>Opportunity details</th>
+                    
+                    <td colspan="3">
+                        <table class="opplTable">
+                            <thead class="opplTableHeader">
+                                <tr class="slds-text-title_caps">
+                                    <th scope="col">
+                                        <div title="Key">Opportunity Name</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div title="Value">ID</div>
+                                    </th>
+                                    <th scope="col">
+                                        <div title="Value">Stage Name</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="opplTableBody">
+                                <template for:each={keyValue.oppl} for:item="opp">
+                                    <tr key={opp.Id}>
+                                        <th scope="col">
+                                            <div>{opp.Name}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>{opp.Id}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>{opp.StageName}</div>
+                                        </th>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</template>

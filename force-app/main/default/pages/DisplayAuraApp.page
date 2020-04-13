@@ -1,0 +1,14 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+    <apex:includeLightning />
+    <div id="main-div"></div>
+    <script>
+    $Lightning.use("c:lightningApp1", function() {
+        $Lightning.createComponent("c:lightningComp1",
+                                   {},
+                                   "main-div",
+                                   function(cmp) {
+                                       console.log('>>>>> App is hosted');
+                                   });
+    });
+    </script>
+</apex:page>

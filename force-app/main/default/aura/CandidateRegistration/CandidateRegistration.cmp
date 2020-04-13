@@ -1,0 +1,26 @@
+<aura:component>
+    <div class="slds-brand-band slds-brand-band_small">
+    <div class="slds-global-header__item slds-p-around_large slds slds-card slds-box slds-theme_shade ">
+        <img alt="CA_LOGO" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/CA_LOGO.png'}" title="LOGO" style="height:60px; width:auto "/>
+      </div>
+      <br/>
+    <div>
+        <lightning:tabset variant="vertical">
+
+            <lightning:tab label="Main Page" class="bgcolor">
+                <c:DisplayDetails/>
+            </lightning:tab>
+
+            <lightning:tab label="Candidate Detail"  class="bgcolor">
+                <c:CreateCandidatePopUp/>
+        <br/>
+                <c:CandidateDetailsInTable/>
+            </lightning:tab>
+            <lightning:tab label="For Further Use"  class="bgcolor">
+                <img alt="CA_LOGO" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/CA_LOGO.png'}" title="LOGO" />
+                can be used further
+            </lightning:tab>
+        </lightning:tabset>
+    </div>
+</div>
+</aura:component>

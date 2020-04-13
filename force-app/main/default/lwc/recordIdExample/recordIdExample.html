@@ -1,0 +1,40 @@
+<template>
+    
+    <lightning-card>
+        <h3 slot="title" class="title">
+            <lightning-icon icon-name="utility:connected_apps" size="small"></lightning-icon>
+            Custom Contact
+        </h3>
+        <template for:each={contactList} for:item="cont" for:index="index">
+             &nbsp;                                    
+            <div key={cont.id} class="slds-p-around_medium lgc-bg">
+                <lightning-tile key={cont.id} label={cont.Name} href="/bruce.html" onmouseover={showPopUp} onmouseout={hidePopUp}  data-recordid={cont.Id}  title={index} type="media">
+                    <lightning-avatar key={cont.id} slot="media" src="https://www.lightningdesignsystem.com/assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text="Bruce Wayne"></lightning-avatar>
+                    
+                    <section if:true={cont.isEdited} aria-describedby="dialog-body-id-98" aria-labelledby="dialog-heading-id-103" class="slds-popover slds-nubbin_left slds-popover_medium" role="dialog">
+                        <header class="slds-popover__header">
+                            header
+                        </header>
+                        <div class="slds-popover__body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        </div>
+                    </section>
+
+                    <dl class="slds-dl_inline">
+
+                        <dt class="slds-dl_inline__label">Title:</dt>
+                        <dd class="slds-dl_inline__detail">&nbsp;{cont.Title}</dd>
+                        <dt class="slds-dl_inline__label">Phone:</dt>
+                        <dd class="slds-dl_inline__detail">&nbsp;{cont.Phone}</dd>
+                        <dt class="slds-dl_inline__label">Email:</dt>
+                        <dd class="slds-dl_inline__detail">{cont.Email}</dd>
+                      </dl>
+                </lightning-tile>
+                </div>
+        </template>
+        <div slot="footer">
+            
+        </div>
+
+    </lightning-card>        
+</template>

@@ -1,0 +1,36 @@
+<aura:component controller="InlineSearch_Apex">
+    <aura:attribute name="accName" type="String" default="" />
+    <aura:attribute name="sobjectApi" type="String" default="Account" />
+    <aura:attribute name="searchList" type="List" default="[]" />
+<div>
+          <lightning:input type="search" label="Account Search" aura:id="text-input-id-1" placeholder="Placeholder Text"  value="{!v.accName}" onchange="{!c.handleClick}"/>
+      
+<br/>
+      <aura:if isTrue="{!v.searchList.length>0}">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+            <thead>
+                <tr class="slds-text-title_caps">
+            
+                    <th scope="col">
+                        <div class="slds-truncate" title="Account Name">Account Name</div>
+                    </th>
+           
+                </tr>
+            </thead>
+            <tbody>
+                <aura:iteration items="{!v.searchList}" var="acc" indexVar="count">
+                    <tr>
+                        <td>
+                            {!acc.Name}
+                        </td>
+                        <td>
+                            {!acc.ID}
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table> 
+      </aura:if>
+      
+</div>
+</aura:component>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<Html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <Head>
+        <Title> Login Page</Title>
+       
+            <link rel="stylesheet" type="text/css" href="cssForRegistration.css">
+            <script src="JavaScriptValidations.js">
+            </script>
+    </Head>
+    <body>
+     <div class="Login">
+        <h2 align="center">Login Page</h2>
+        <img src="C:\Users\yatha\Downloads\log-png-images.png"  class="img" alt="Cannot Load The Image">
+        <form name ="formLog" onsubmit="Validation(document.formLog.Email,document.formLog.Password)">
+            <hr>
+        Email ID<br>
+            <Input type ="Email" Name="Email" id="Email" placeholder="Enter Email" required><br>
+        Password<br>
+            <Input type ="password" Name="Password"id="Pass" placeholder="Password" required><br>
+        <button type ="Submit" class="logbtn" > Login</button><br><br>
+        <button Type ='button' class="regbtn" onclick="window.open('RegistrationForm.html')"> Not a User ? Register</button>
+             
+            
+        </form>
+     </div>
+    </body>

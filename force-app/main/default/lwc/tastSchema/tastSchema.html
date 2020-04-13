@@ -1,0 +1,57 @@
+<template>
+
+    <lightning-card>
+    <div>
+        <lightning-input label="Sobject Name" data-id="sobject" type="text" variant="standard"></lightning-input>
+        <br/>
+        <lightning-button name="search" variant="brand" label="search" onclick={handleSave}></lightning-button>
+    </div>
+    <div class="slds-form-element">
+    <template for:each={listOfFields} for:item="input">
+
+        <template if:true={input.isPickList}>
+            <label class="slds-form-element__label" for={input.nameLabel} key={input}>{input.nameLabel}</label>
+            <select key={input} id={input.nameLabel} class="slds-select" >
+                <template for:each={input.pickListValue} for:item="abc">
+                <option key={abc} value={abc}>{abc}</option>
+                </template>
+              </select>
+        </template>
+
+        <template if:true={input.isMultiPickList}>
+                <lightning-dual-listbox name="languages"
+                    key={input}
+                    label={input.nameLabel}
+                    source-label="Available"
+                    selected-label="Selected"
+                    options={options}
+                    onchange={handleChange}
+                    class="slds-form-element__label">
+                </lightning-dual-listbox>
+        </template>
+
+        <template if:false={input.isMultiPickList}>
+            <template if:false={input.isPickList}>
+                <template if:true={input.isReference}>
+
+                    <label key = {input.name}>{input.label}</label>
+                    <select key = {input.name} onchange={changePickList} name={input.name}>
+
+                        <template for:each={input.referenceList} for:item="item2">
+                            <option key={item2} value={item2.Id}>{item2.Name}</option>
+                        </template>
+
+                    </select>
+                </template>
+            
+                <lightning-input type={input.typeData} key={input} name="input1" label={input.nameLabel} ></lightning-input>
+           
+            </template>
+        </template>
+
+    </template>
+    </div>
+
+    </lightning-card>
+    
+</template>

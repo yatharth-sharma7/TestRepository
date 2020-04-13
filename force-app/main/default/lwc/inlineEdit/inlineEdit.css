@@ -1,0 +1,24 @@
+.mainTable{
+    border-width: 3px;
+}
+.mainTableHeader{
+    background-color: rgb(38, 123, 235);
+}
+.mainTableBody{
+    background-color: rgb(255, 255, 255);
+}
+table, th, td {
+    border: 1px solid black;
+  }
+.button {
+    background-color:  rgb(38, 123, 235);
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1px 1px;
+    cursor: pointer;
+  }

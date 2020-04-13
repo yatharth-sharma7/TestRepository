@@ -1,0 +1,116 @@
+<apex:page Controller="Ctrl_AccountSearch" >
+    <script>
+        function checkLength(obj){
+           var name = obj.value;
+            if(name.length>3)
+            {
+                searchAccount();
+            }
+        }
+    </script>
+    <apex:form >
+
+        <apex:pageBlock >
+           
+                <apex:actionFunction name="searchAccount" action="{!searchAccount}" reRender="contact-table"/>
+                
+            <!-- inputFields to search accounts-->
+            <apex:pageBlockSection id="contact-table" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name" />
+                    <apex:inputText value="{!name}" onkeyup="checkLength(this)" />
+                    
+                </apex:pageBlockSectionItem>
+                <apex:pageMessage severity="Error" summary="Cannot Be Empty" strength="1" rendered="{!showError == true}"></apex:pageMessage>
+                <apex:pageMessage severity="Error" summary="No List Found" strength="1" rendered="{!Accounts.size==0 && showError == false}"></apex:pageMessage>
+                
+                <!-- pageBlockTable to show accounts-->
+                <apex:pageBlockTable value="{!Accounts}" var="c" rendered="{!showError == false && initialTable == true}">
+                    <apex:column >
+                        <apex:facet name="header">ID</apex:facet>     <!-- column to show id-->
+                        {!c.Id}
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:facet name="header">Name</apex:facet>     <!-- column to show name-->
+                        {!c.Name}
+                    </apex:column>
+
+                    <apex:column rendered="{!c.id == editAcc.id}">              <!-- column to input field name-->
+                        <apex:facet name="header">Edit Name</apex:facet>
+                        <apex:inputField value="{!c.name}"/>
+                    </apex:column>
+
+                    <apex:column >                                          <!-- column to show website-->
+                        <apex:facet name="header">Website</apex:facet>
+                        {!c.site}
+                       
+                    </apex:column>                                          
+
+                    <apex:column rendered="{!c.id == editAcc.id}">             <!-- column to input field website-->
+                        <apex:facet name="header">Edit Website</apex:facet>
+                        <apex:inputField value="{!c.site}"/>
+                    </apex:column>
+
+                    <apex:column >                                       <!-- column to show number-->
+                        <apex:facet name="header">Phone Number</apex:facet>
+                        {!c.phone}
+                    </apex:column>
+
+                    <apex:column rendered="{!c.id == editAcc.id}">                 <!--column to input field edit number-->
+                        <apex:facet name="header">Edit Phone Number</apex:facet>
+                        <apex:inputField value="{!c.phone}"/>
+                    </apex:column>
+
+                    <apex:column >                                            <!-- column to show owner-->
+                        <apex:facet name="header">Owner Name</apex:facet>
+                        {!c.owner.name}
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:commandButton value="Edit" action="{!editAccName}" rendered="{!c.id != editAcc.id}" ><!-- Edit Button-->
+                        <apex:param name="accountid" value="{!c.id}"/>
+                        </apex:commandButton>
+                        <apex:commandButton action="{!save}" value="Save" rendered="{!c.id == editAcc.id}"/><!-- save Button-->
+                    </apex:column>
+
+                </apex:pageBlockTable>
+
+            </apex:pageBlockSection>
+            
+            <!-- Previous and Next Button pagination-->
+            <!--<apex:pageBlockSection rendered="">
+
+            <apex:panelGrid columns="4">
+                <apex:commandButton value="Next"></apex:commandButton> 
+                <apex:commandButton value="Previous"></apex:commandButton>
+            </apex:panelGrid>
+
+            </apex:pageBlockSection>-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+
+<!--<table>
+    <tr>
+        <th style="width:100px">ID </th>
+        <th style="width:100px">Name </th>
+        <th style="width:100px">Website</th>
+        <th style="width:100px">Phone Number</th>
+        <th style="width:100px">Owner Name</th>
+        <th style="width:100px"> button</th>
+    </tr>
+<apex:repeat value="{!Accounts}" var="c" rendered="{!showError == false && initialTable == true}">
+    <tr style="height:20px">
+        <td> {!c.Id}</td>
+        <td> {!c.Name}</td>
+        <td>{!c.site}</td>
+        <td>{!c.phone}</td>
+        <td> {!c.owner.name}</td>
+        <td>
+            <apex:commandButton action="{!save}" value="Save" Rendered="{!val == true}"/>
+            <apex:commandButton value="Edit" id="EditButton" action="{!show}" Rendered="{!val == false}" />
+        </td>
+    </tr>
+</apex:repeat>
+</table>-->

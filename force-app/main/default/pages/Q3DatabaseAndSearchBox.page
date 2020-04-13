@@ -1,0 +1,48 @@
+<apex:page Controller="Ctrl_Search" >
+    <apex:form >
+        <apex:pageBlock >
+                
+            <!-- inputFields to search accounts-->
+            <apex:pageBlockSection id="contact-table" columns="1">
+                    <apex:outputLabel value="Name" />
+                    <apex:inputText value="{!name}"/>
+                    <apex:commandButton value="Search" action="{!searchAccount}" reRender="contact-table"/>
+
+                <apex:pageMessage severity="Error" summary="Cannot Be Empty" strength="1" rendered="{!showError == true}"></apex:pageMessage>
+                <apex:pageMessage severity="Error" summary="No List Found" strength="1" rendered="{!Accounts.size==0 && showError == false}"></apex:pageMessage>
+                
+                <!-- pageBlockTable to show accounts-->
+                <apex:pageBlockTable value="{!Accounts}" var="c" rendered="{!showError == false && initialTable == true}">
+                    
+                    <apex:column >
+                        <apex:facet name="header">ID</apex:facet>     <!-- column to show id-->
+                        {!c.Id}
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:facet name="header">Name</apex:facet>     <!-- column to show name-->
+                        {!c.Name}
+                    </apex:column>
+
+                    <apex:column >                                          <!-- column to show website-->
+                        <apex:facet name="header">City</apex:facet>
+                        {!c.ShippingCity}
+                    </apex:column>                                          
+
+                    <apex:column >                                       <!-- column to show number-->
+                        <apex:facet name="header">Phone Number</apex:facet>
+                        {!c.phone}
+                    </apex:column>
+
+                    <apex:column >                                            <!-- column to show owner-->
+                        <apex:facet name="header">Postal Code</apex:facet>
+                        {!c.ShippingPostalCode}
+                    </apex:column>
+
+                </apex:pageBlockTable>
+
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

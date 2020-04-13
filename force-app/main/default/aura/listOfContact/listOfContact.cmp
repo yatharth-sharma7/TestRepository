@@ -1,0 +1,8 @@
+<aura:component controller="fetchContactDetails" implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="contactList" type="contact[]" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+    <aura:iteration items="{!v.contactList}" var="item">
+         <c:fetchList contactName="{!item.Name}"  email="{!item.Email}"  />
+         <br/>
+    </aura:iteration>
+</aura:component>

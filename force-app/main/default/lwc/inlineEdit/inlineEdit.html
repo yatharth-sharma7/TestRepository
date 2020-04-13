@@ -1,0 +1,46 @@
+<template>
+    <table class="mainTable">
+        <thead class="mainTableHeader">
+            <tr>
+                <th>Account ID</th>
+                <th>Account Name</th>
+                <th>Phone</th>
+                <th>Website</th>
+                <th>Description</th>
+                <th>Action</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody class="mainTableBody">
+            <template for:each={accountList} for:item="keyValue" for:index="index">
+                <tr key={keyValue.Id}>
+
+                    <td>{keyValue.Id}</td>
+                   
+                    
+                        <template if:false={keyValue.isEdited}>
+                            <td>{keyValue.Name}</td>
+                            <td>{keyValue.Phone}</td>
+                            <td>{keyValue.Website}</td>
+                            <td>{keyValue.Description}</td>
+                            <td><button type="button" class="button" onclick={handleEdit} data-recordid={keyValue.Id} title={index}>Edit</button> &nbsp;</td>
+                        </template> 
+                        
+                        <template if:true={keyValue.isEdited}>
+                           <td><lightning-input data-id="Name" type="text"  value={keyValue.Name}></lightning-input></td>
+                           <td><lightning-input data-id="Phone" type="phone"   value={keyValue.Phone}></lightning-input></td>
+                            <td><lightning-input data-id="Website" type="text"  value={keyValue.Website}></lightning-input></td>
+                            <td><lightning-input data-id="Description" type="text"  value={keyValue.Description}></lightning-input></td>
+                            <td><button type="button" class="button" onclick={handleSave} data-recordid={keyValue.Id} title={index}>Save</button> &nbsp;</td>
+                        </template>
+                    
+                    <td>
+                        <button type="button" class="button" onclick={handleDelete} data-recordid={keyValue.Id}>Delete</button> &nbsp;
+                    </td>
+
+                </tr>
+            </template>
+        </tbody>
+    </table>
+    
+</template>

@@ -1,0 +1,12 @@
+.THIS .box {
+    height:150px;
+    background-color:white;
+    z-index: 9999;
+    position: absolute;
+    border-radius:5px;
+    border:1px solid lightgray;
+}
+.THIS .hover-item:hover {
+    background-color: #f7f4f4;
+    cursor:pointer;
+}

@@ -1,0 +1,19 @@
+<apex:page controller="ScheduleController" id="Page">
+    <apex:form id="form">
+        <apex:pageBlock title="JOB DETAILS" id="currentPage">
+            <apex:pageBlockTable value="{!scdList}" var="job" border="5">
+                
+                    <apex:column value="{!job.Id}"/>          		 
+                    <apex:column value="{!job.CronJobDetail.Name}"/>
+                	<apex:column value="{!job.State}"/>
+                
+               		<apex:column > 
+                        <apex:commandButton value="Delete" action="{!deleteJob}" reRender="form">
+                            <apex:param name="jobId" value="{!job.id}"/>
+                        </apex:commandButton>
+                	</apex:column>
+                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form> 
+</apex:page>

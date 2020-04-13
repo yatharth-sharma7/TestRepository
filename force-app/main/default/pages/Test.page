@@ -1,0 +1,14 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+    <apex:includeLightning />
+    <div id="main-div"></div>
+    <script>
+    $Lightning.use("c:customLookup_taskApp", function() {
+        $Lightning.createComponent("c:CandidateRegistration",
+                                   {},
+                                   "main-div",
+                                   function(cmp) {
+                                       console.log('>>>>> App is hosted');
+                                   });
+    });
+    </script>
+</apex:page>

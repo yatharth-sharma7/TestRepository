@@ -1,0 +1,181 @@
+<apex:page controller="AccountRemoter" docType="html-5.0">
+
+    <!--<style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background: rgb(250, 250, 250);
+        }
+        h2{
+            text-shadow: 0px 1px 5px rgba(128, 128, 128, 0.712);
+            color: hsl(0, 0%, 0%);
+            font-size: 2em;
+            font-weight: 100;
+            margin-left: 45%;
+            margin-right: 30%;
+            margin-bottom: 5%;
+            margin-top: 5%;
+            float: left;
+        }
+        #searchBar{
+            width: 100%;
+            border-radius: 20px;
+            float: left;
+        }
+        #objectName{
+            width: 70%;
+            float:left;
+            border: none;
+            border-radius: 20px;
+            padding: 2% 5%;
+            font-size: 1.5em;
+            background-color: lavender;
+            margin-left: 10%;
+            margin-right: 10%;
+
+        }
+        #btnSearch{
+            background: :aqua;
+            border:none;
+            padding: 2% 5%;
+            border-radius: 20px;
+            margin: 0% 1%;
+            width: 18%;
+            font-size: 1.5em;
+            cursor: pointer;
+            float: left;
+            color: #333;
+            outline: none;
+        }
+        #btnSearch:hover{
+            background: #DFF;
+            color:#000;
+        }
+        #btnSearch:active{
+            background: #777;
+            color: #FFF;
+        }
+        #records{
+            border-collapse: collapse;
+            margin-top: 50px;
+            width: 100%;
+            background: #FFF;
+            float: left; 
+        }
+        #records th, #records td{
+            border: 1px solid  rgba(128, 128, 128, 0.712);
+            padding: 10px;
+        }
+        #records th{
+            background-color: rgb(93, 97, 97);
+            color: rgb(255, 255, 255);
+        }
+        #records tr:nth-child(odd){
+            color: rgb(223, 223, 223);
+            background-color: rgb(241, 241, 241);
+        }
+        #details p{
+            color: rgb(185, 0, 0);
+            font-size: 2em;
+            margin-left: 40%;
+            margin-right: 30%;
+            margin-top: 10%;
+            float: left;
+
+        }
+    </style>-->
+    <script>
+        function countChar(){
+            var accountName = document.getElementById("objectName").value;
+            if(accountName.length>3){
+                Visualforce.remoting.Manager.invokeAction('{!$RemoteAction.AccountRemoter.getAccount}', accountName, function(result, event){
+                if(event.status){
+                   var length1 = result.length;
+                    if(length1==0){
+                        document.getElementById("details").innerHTML = '<p> NO RECORDS FOUND </p>';
+                    }
+                    else{
+                        var markup = '<table id="records">';
+                        markup += '<tr><th>Name</th><th>Phone</th><th>Type</th><th>NumberOfEmployees</th><th>Edit</th></tr>';
+                        for(var i = 0; i<length1; i++){
+                            var accountDetails = '<tr>'+
+                            "<td>" +result[i].Name+ "</td>"+
+                            "<td>" +result[i].Phone+ "</td>"+
+                            "<td>" +result[i].site+ "</td>"+
+                            "<td>" +result[i].NumberOfEmployees+ "</td>"+ 
+                            '</tr>';
+                            markup +=accountDetails;
+                        }
+                        document.getElementById("details").innerHTML = markup;
+                    }
+                }
+                else if(event.type === 'exception'){
+                    document.getElementById("details").innerHTML = event.message+"<br/>\n<pre>"+event.where+"</pre>";
+                }
+                else{
+                    document.getElementById("details").innerHTML = event.message;
+                }
+            }, {escape: true}
+            
+            );
+
+
+            }
+            
+            
+        }
+    </script>
+   <!-- <apex:form >
+      <apex:pageBlock >
+        <apex:actionFunction name="callingApexaActionFunction" action="{!searchAccount}" reRender="dataTable"/>
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Search" action="{!searchAccount}" reRender="account-table" />
+                 <apex:commandButton action="{!save}" value="Save" reRender="account-table" />
+                 <apex:commandButton action="{!editButton}" value="Edit" reRender="account-table"/>
+            </apex:pageBlockButtons>
+          
+	        <apex:pageBlockSection id="account-table" columns="1">
+	            <apex:pageBlockSectionItem >    
+                    <apex:outputLabel value="Name"/>
+                    <apex:inputText onchange = "countChar(this)" value="{!name}" /> CALLING JS FOR CHAR COUNT
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageMessage severity="Error" summary="Name Field Cannot Be Empty" strength="1" rendered="{!showMsg}"></apex:pageMessage>
+
+                <apex:pageBlockTable value="{!act}" var="a" rendered="{!(!showMsg)}" id="dataTable">
+
+                    <apex:column >
+                        <apex:facet name="header">Name</apex:facet>
+                        <apex:outputField value="{!a.Name}" rendered="{!(!showField)}"/>
+                        <apex:inputField value="{!a.Name}"  rendered="{!showField}"/>
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:facet name="header">NumberOfEmployees</apex:facet>
+                        <apex:outputField value="{!a.NumberOfEmployees}" rendered="{!(!showField)}"/>
+                        <apex:inputField value="{!a.NumberOfEmployees}" rendered="{!showField}"/>
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:facet name="header">Phone</apex:facet>
+                        <apex:outputField value="{!a.Phone}" rendered="{!(!showField)}"/>
+                        <apex:inputField value="{!a.Phone}" rendered="{!showField}"/>
+                        
+                    </apex:column>
+
+                    <apex:column >
+                        <apex:facet name="header">Site</apex:facet>
+                        <apex:outputField value="{!a.Site}"  rendered="{!(!showField)}"/>
+                        <apex:inputField value="{!a.Site}" rendered="{!showField}"/>
+                        
+                    </apex:column>
+                </apex:pageBlockTable>
+	        </apex:pageBlockSection>
+	    </apex:pageBlock>
+    </apex:form>-->
+    <h2> DATA TABLE </h2><br/>
+    <div id="searchBar">
+        <input type="text" id="objectName" placeholder="Enter Account Name" onkeyup="countChar();"/>
+       <!--<input type="button" value="Search" id = "btnSearch" onclick="countChar();"/>-->
+    </div>
+    <div id="details"></div> 
+</apex:page>

@@ -1,0 +1,26 @@
+<apex:page standardStylesheets="false" standardController="Account">
+        <link rel="shortcut icon" HREF="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/caLogo.ico')}"/> 
+        <apex:stylesheet value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/cssForRegistration.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/JavaScriptValidations.js')}"/>
+   <div class = "main">
+        <h1>Register Account</h1>
+        <apex:image styleClass="img" value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/caLogo.png')}"/>
+        <hr/>
+    <apex:form >
+        Name:<br/>
+        <apex:inputField value="{!Account.Name}"/>
+        Account Number:<br/>
+        <apex:inputField value="{!Account.AccountNumber}"/><br/>
+        Site:<br/>
+        <apex:inputField value="{!Account.Site}"/><br/>
+        Phone:<br/>
+        <apex:inputField value="{!Account.Phone}"/><br/>
+        Annual Revenue:<br/>
+        <apex:inputField value="{!Account.AnnualRevenue}"/><br/><br/>
+        
+        <apex:commandButton styleclass="regbtn" action="{!save}" value="Save" style="background:#1E71EE" />
+    
+    </apex:form>
+</div>
+    
+</apex:page>

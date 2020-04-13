@@ -1,0 +1,64 @@
+<template>
+    <div>
+        <div class="canvas-page">
+            <div class="canvas-page__child-element">
+                <div class="canvas-element">
+                    <table class="slds-table slds-table_fixed-layout slds-no-row-hover ng-untouched ng-pristine ng-valid">
+                        <thead>
+                            <tr>
+                                <th class=" ">
+                                    <div class="slds-has-flexi-truncate">
+                                        <div class="slds-truncate" title="Column Name">Account Name</div>
+                                    </div>
+                                </th>
+                                <th class=" ">
+                                    <div class="slds-has-flexi-truncate">
+                                        <div class="slds-truncate" title="Column Name">Bank Name</div>
+                                    </div>
+                                </th>
+                                <th class=" ">
+                                    <div class="slds-has-flexi-truncate">
+                                        <div class="slds-truncate" title="Column Name">IFSC code</div>
+                                    </div>
+                                </th>
+                                <th class=" ">
+                                    <div class="slds-has-flexi-truncate">
+                                        <div class="slds-truncate" title="Column Name">Address</div>
+                                    </div>
+                                </th>
+                                <th class=" ">
+                                    <div class="slds-has-flexi-truncate">
+                                        <div class="slds-truncate" title="Column Name">Total Ammount</div>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={AccountList} for:item="Acc">
+                                <tr key={Acc.Id} class="slds-hint-parent">
+                                    <td>
+                                        <div class="slds-truncate">{Acc.Name}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{Acc.BankName__c}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{Acc.IFSC__c}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{Acc.Addres__c}</div>
+                                    </td>
+                                    <td>
+                                        <div class="slds-truncate">{Acc.TotalAmount__c}</div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</template>

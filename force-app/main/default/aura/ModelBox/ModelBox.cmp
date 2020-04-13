@@ -1,0 +1,7 @@
+<aura:component>
+<aura:handler event="c:callChild" Action="{!c.clear}"/>
+    hbvjhsbcjk
+    dkhcbkdscb
+    'jnds cjhdsck'
+    
+</aura:component>

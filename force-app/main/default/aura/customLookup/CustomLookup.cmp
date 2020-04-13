@@ -1,0 +1,65 @@
+<aura:component controller="CustomLookupController" access="global" >
+    <aura:attribute name="label" type="String" default="" />
+    <aura:attribute name="sobjectApi" type="String" default="" required="true" />
+    <aura:attribute name="searchList" type="LIST" default="[]"  />
+    <aura:attribute name="searchKey" type="String" default=""  />
+    <aura:attribute name="selectedId" type="String" default=""  />
+    <aura:attribute name="selectedName" type="String" default=""  />
+    <aura:attribute name="isSelected" type="Boolean" default="false"  />
+    <div>
+        <aura:if isTrue="{!v.isSelected}">
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="combobox-id-5"> </label>
+                <div class="slds-form-element__control">
+                    <div class="slds-combobox_container slds-has-selection">
+                        <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false" aria-haspopup="listbox" role="combobox">
+                            <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right" role="none">
+                                <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon" title="Account">
+                                    <lightning:icon iconName="standard:account" size="x-small" />
+                                    <span class="slds-assistive-text">Account</span>
+                                </span>
+                                <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value" id="combobox-id-5" aria-controls="listbox-id-5" autoComplete="off" role="textbox" placeholder="Select an Option" readonly="" value="{!v.selectedName}" />
+                                <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right" title="Remove selected option" onclick="{!closeSearech}">
+                                    <lightning:icon iconName="utility:close" size="x-small"  />
+                                    <span class="slds-assistive-text">Remove selected option</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aura:set attribute="else">
+                <div style="position:relative">
+                    <lightning:input value="{!v.searchKey}" label="{!v.label}"
+                                     type="search"
+                                     onchange="{!c.search}"
+                                     />
+                    <aura:if isTrue="{!v.searchList.length > 0}">
+                        <div class="slds-size_1-of-1 box slds-scrollable" >
+                            <aura:iteration items="{!v.searchList}" var="item" indexVar="index" >
+                                <aura:if isTrue="{!index == 0}">
+                                    <div class="slds-size_1-of-1 slds-p-around_xx-small hover-item">
+                                        <lightning:icon iconName="utility:search" size="x-small" />
+                                        Search for "{!v.searchKey}"
+                                    </div>
+                                </aura:if>
+                                <div class="slds-size_1-of-1 slds-p-around_xx-small hover-item" data-id="{!item.Id}" data-name="{!item.Name}" onclick="{!c.select}">
+                                    <lightning:icon iconName="standard:account" size="x-small" />
+                                    <span class="slds-p-left_xx-small">{!item.Name}</span>
+                                </div>
+                            </aura:iteration>
+                            
+                        </div>
+                        <aura:set attribute="else">
+                            <aura:if isTrue="{!v.searchKey != ''}">
+                                <div class="slds-size_1-of-1 box" >
+                                    No record found!
+                                </div>
+                            </aura:if>
+                        </aura:set>
+                    </aura:if>
+                </div>
+            </aura:set>
+        </aura:if>
+    </div>
+</aura:component>

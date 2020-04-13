@@ -1,0 +1,48 @@
+<aura:component access="global">
+
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="objectApi" type="String" />
+    <aura:attribute name="showView" type="Boolean" default="false"/>
+
+    <aura:handler event="c:ResultEvent" action="{!c.getValueFromApplicationEvent}" />
+    <aura:if isTrue="{!v.showView}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick="{!c.hideModel}">
+                            <lightning:icon iconName="utility:close" variant="bare" />
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <p class="slds-m-top_x-small"></p>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <aura:if isTrue="{!v.showSpinner}">
+                            <lightning:spinner />
+                        </aura:if>
+                        <aura:if isTrue="{!!v.saved}">
+                            <lightning:recordEditForm aura:id="editRecordForm" recordId="{!v.recordId}"
+                                objectApiName="Candidate__c" onsubmit="{!c.handleSubmit}" onsuccess="{!c.hideModel}">
+                                <lightning:messages />
+                                <lightning:inputField fieldName="Name" />
+                                <lightning:inputField fieldName="Aadhaar_Card__c" />
+                                <lightning:inputField fieldName="DOB__c" />
+                                <lightning:inputField fieldName="Email_Id__c" />
+                                <lightning:inputField fieldName="Mother_s_Name__c" />
+                                <lightning:inputField fieldName="Father_s_Name__c" />
+                                <lightning:inputField fieldName="Gender__c" />
+                                <lightning:inputField fieldName="Phone__c" />
+                                <lightning:inputField fieldName="Status__c" />
+                                <lightning:button disabled="{!v.disabled}" variant="brand" type="submit" name="save"
+                                    label="Save" />
+                            </lightning:recordEditForm>
+
+                            <aura:set attribute="else">
+                                <p>Saved!</p>
+                            </aura:set>
+                        </aura:if>
+                    </div>
+                </div>
+            </section>
+    </aura:if>
+</aura:component>
