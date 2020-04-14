@@ -1,0 +1,19 @@
+<aura:component controller="lightningComp1ApexClass">
+    <aura:attribute name = "message" type = "string" default = "this is the default message" />
+    <aura:attribute name = "acccName" type = "string" default = "" access ="global" />
+    <div class="slds-p-around_large">
+        <lightning:input name="input1" label="Enter some text" onchange="{!c.changeF2}" />
+        <lightning:input name="input2" label="Text Copied" value= "{!v.message}"/>
+        <lightning:button label="Update Message" iconName="utility:edit" variant="brand" onclick="{!c.alertMessage}" />
+    </div>
+    <div>
+        <aura:iteration items="1,2,3,4,5" var="item">
+            <meter value="{!item / 5}"/><br/><br/>
+        </aura:iteration>
+    </div>
+    <div class="slds-p-around_large">
+    <lightning:input name="enterAcc" label="Enter Account to Search" value="{!v.accName}" onchange="{!c.getName}" />
+    </div>
+
+    
+</aura:component>

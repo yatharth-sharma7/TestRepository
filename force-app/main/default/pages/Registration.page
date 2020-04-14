@@ -1,0 +1,48 @@
+<apex:page standardStylesheets="false" standardController="Contact">
+        <apex:stylesheet value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/cssForRegistration.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/JavaScriptValidations.js')}"/>
+ <Html>
+    <Head>
+        <Title> Registration Page</Title>
+    </Head>
+    <script>
+            function check(){
+                window.alert("test");
+            }
+    </script>
+    <body>
+        <div class="Registration ">
+            <h2 align="center">Registration Page</h2>
+            <hr/>
+            <form name ="formReg">
+                    First Name<br/>
+                        <Input type ="text" Name="Fname" value="{!Contact.FirstName}" placeholder="Enter First Name" required=""/><br/>
+                    Last Name<br/>
+                        <Input type ="text" Name="Lname" value="{!Contact.LastName}" placeholder="Enter Last Name" required=""/><br/>
+                    Date Of Birth<br/>
+                        <Input type ="date" Name="date" required=""/><br/>
+                    Gender<br/>
+                        <input type="radio" name="gender" value="male" checked=""/> Male<br/>
+                        <input type="radio" name="gender" value="female"/> Female<br/>
+                        <input type="radio" name="gender" value="other"/> Other<br/><br/>
+                          
+                    Mother's Name<br/>
+                        <Input type ="text" Name="MotherName" placeholder="Enter Mother's Name"/><br/>
+                    Father's Name<br/>
+                        <Input type ="text" Name="FatherName" placeholder="Enter Father's Name"/><br/>
+               
+                    Email ID<br/>
+                        <Input type ="Email" Name="Email" placeholder="Enter Email" required=""/><br/>
+                    Contact Number<br/>
+                        <Input type ="tel" Name="Phone" placeholder="Phone Number" pattern="[0-9]{10}" required=""/><br/>
+                    Address<br/>
+                        <textarea Name="Address" placeholder= "Address" ></textarea><br/>
+                    
+            <br/>
+                    By clicking Register you automatically accept the <a href="{!URLFOR($Resource.RegFormLogin,'HtmlCssJavaScript/lol.pdf')}">terms and condition</a>
+                    <button type ="Submit" class="logbtn" onclick="Check()"> Register</button><br/><br/>
+            </form>
+            </div>
+        </body>
+    </Html>
+</apex:page>

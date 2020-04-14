@@ -1,0 +1,18 @@
+<template>
+   
+    <lightning-combobox
+        name="progress"
+        label="Status"
+        value={value}
+        placeholder="Select Progress"
+        options={options}
+        onchange={handleChange} >
+    </lightning-combobox>
+
+    <p>Selected value is: {value}</p>
+   
+    <template if:true={show}>
+        <lightning-input type="text" label="Enter some text"></lightning-input>
+        {accountFields.Name.label} : {accountRecord.Name.value}: {accountRecord.Name.type}
+    </template>
+</template>

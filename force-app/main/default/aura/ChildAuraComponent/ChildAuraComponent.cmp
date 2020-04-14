@@ -1,0 +1,6 @@
+<aura:component >
+	<aura:handler name="sampleComponentEvent" event="c:ParentAuraComponentToChild"
+    action="{!c.handleComponentEvent}"/>
+    
+     <lightning:input type="date" name="input1" label="Enter a date" />
+</aura:component>

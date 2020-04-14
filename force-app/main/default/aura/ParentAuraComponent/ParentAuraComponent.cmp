@@ -1,0 +1,9 @@
+<aura:component>
+    <aura:attribute name="accName" type="String" default="ABCDEFGHI" />
+    <aura:registerEvent name="sampleComponentEvent" type="c:ParentAuraComponentToChild"/>
+
+    <lightning:button variant="base" label="Base" title="Base action" onclick="{! c.compEventa }"/>
+    
+</aura:component>
+
+<!--WrapperForCandidateAndItsAssociates-->

@@ -1,0 +1,347 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" controller="CreateRecord" access="global" >
+    <aura:attribute name="showBox" type="Boolean" default="false" />
+    <aura:attribute name="showBoxQual" type="Boolean" default="false" />
+    <aura:attribute name="showBoxExp" type="Boolean" default="false" />
+    <aura:attribute name="newQual" type="Boolean" default="false" />
+    <aura:attribute name="newExp" type="Boolean" default="false" />
+    <aura:attribute name="checkExp" type="Boolean" default="false" />
+    <aura:attribute name="CandidateID" type="Id"  />
+    
+    <aura:registerEvent name="EventModel" type="c:callChild"/>
+
+    <aura:attribute name="candidateRecord" type="Candidate__c" default="{'sobjectType' : 'Candidate__c'}" />
+    <aura:attribute name="qualificationRecord" type="Qualification__c" default="{'sobjectType' : 'Qualification__c'}" />
+    <aura:attribute name="experienceRecord" type="Experience__c" default="{'sobjectType' : 'Experience__c'}" />
+
+    <div class="slds-align_absolute-center slds-m_small" style="height:2rem">
+        <lightning:button label="New Candidate"  iconName="utility:add" variant="brand" onclick="{!c.showModel}" />
+    </div>
+    
+    
+    <aura:if isTrue="{!v.showBox}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModel}">
+                        <lightning:icon iconName="utility:close" variant="bare" size="small" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <div class="slds-page-header">
+                        <div class="slds-page-header__row">
+                          <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                              
+                                <span class="slds-icon_container" title="opportunity">
+                                 
+                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                      <img alt="male" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/nAvatar.png'}" title="Male" />
+                                    </span>
+                  
+                                  <span class="slds-assistive-text">Candidate</span>
+                                </span>
+                              
+                              <div class="slds-media__body slds-text-align_left">
+                                <div class="slds-page-header__name">
+                                  <div class="slds-page-header__name-title ">
+                                    <h1>
+                                      <span class="slds-page-header__title slds-truncate" title="wraperList name"> &nbsp; New Candidate</span>
+                                    </h1>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <h1 style="font-size: 20px;">Personal Details</h1>
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Candidate Name" value="{!v.candidateRecord.Name}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" required="true" label="Father Name"
+                                value="{!v.candidateRecord.Father_s_Name__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Mother Name"
+                                value="{!v.candidateRecord.Mother_s_Name__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Number" label="Phone" value="{!v.candidateRecord.Phone__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Email" label="Email" value="{!v.candidateRecord.Email__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Number" label="Aadhar Number"
+                                value="{!v.candidateRecord.Adhaar_Number__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Date" label="Date of Birth"
+                                value="{!v.candidateRecord.DOB__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:select name="select1" label="Gender" required="true"
+                                value="{!v.candidateRecord.Gender__c}">
+                                <option value="">--Select--</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Others">Other</option>
+                            </lightning:select>
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Address" value="{!v.candidateRecord.Address__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:select name="select2" label="Status" value="{!v.candidateRecord.Status__c}">
+                                <option value="">--Select--</option>
+                                <option value="New">New</option>
+                                <option value="Selected">Selected</option>
+                                <option value="Rejected">Rejected</option>
+                            </lightning:select>
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-1">
+                            <lightning:input type="text" label="About Me" value="{!v.candidateRecord.About_Me__c}" />
+                        </div>
+
+                    </div>
+                </div>
+ 
+
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" iconName="utility:close" variant="neutral" onclick="{!c.hideModel}" />
+                    <lightning:button label="Add Qualification" iconName="utility:add" variant="brand" onclick="{!c.save}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+
+
+
+    <!--Add Qualification-->
+    <aura:if isTrue="{!v.showBoxQual}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModelQual}">
+                        <lightning:icon iconName="utility:close" variant="bare" size="small" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <div class="slds-page-header">
+                        <div class="slds-page-header__row">
+                          <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                              
+                                <span class="slds-icon_container" title="opportunity">
+                                 
+                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                      <img alt="male" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/Cicon.png'}" title="Male" />
+                                    </span>
+                  
+                                  <span class="slds-assistive-text">Candidate</span>
+                                </span>
+                              
+                              <div class="slds-media__body slds-text-align_left">
+                                <div class="slds-page-header__name">
+                                  <div class="slds-page-header__name-title ">
+                                    <h1>
+                                      <span class="slds-page-header__title slds-truncate" title="wraperList name"> &nbsp; New Qualification</span>
+                                    </h1>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <h1 style="font-size: 20px;">Personal Details </h1>
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Candidate ID" disabled="true" value="{!v.CandidateID}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" required="true" disabled="true" label="Candidate Name"
+                                value="{!v.candidateRecord.Name}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-1">
+                            <lightning:input type="text" label="Qualification Name"
+                                value="{!v.qualificationRecord.Name}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:select name="select1" label="Course Type" required="true"
+                                value="{!v.qualificationRecord.Course_Type__c}">
+                                <option value="">--Select--</option>
+                                <option value="Secondary">Secondary</option>
+                                <option value="Senior Secondary">Senior Secondary</option>
+                                <option value="Graduation">Graduation</option>
+                                <option value="Post Graduation">Post Graduation</option>
+                                <option value="Other">Other</option>
+                            </lightning:select>
+                        </div>
+                        
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Course" value="{!v.qualificationRecord.Course__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Institution" value="{!v.qualificationRecord.Institution__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Number" label="Percent"
+                                value="{!v.qualificationRecord.Percent__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:select name="select2" label="Year Of Passing" value="{!v.qualificationRecord.Year__c}">
+                                <option value="">--Select--</option>
+                                <option value="2000">2000</option>
+                                <option value="2001">2001</option>
+                                <option value="2002">2002</option>
+                                <option value="2003">2003</option>
+                                <option value="2004">2004</option>
+                                <option value="2005">2005</option>
+                                <option value="2006">2006</option>
+                                <option value="2007">2007</option>
+                                <option value="2008">2008</option>
+                                <option value="2009">2009</option>
+                                <option value="2010">2010</option>
+                                <option value="2011">2011</option>
+                                <option value="2012">2012</option>
+                                <option value="2013">2013</option>
+                                <option value="2014">2014</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                            </lightning:select>
+                        </div>        
+                    </div>
+                </div>
+ 
+
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" iconName="utility:close" variant="neutral" onclick="{!c.hideModelQual}" />
+                    <lightning:button label="Add More" iconName="utility:add" variant="brand" onclick="{!c.newQual}" />
+                    <lightning:button label="Add Experience" iconName="utility:add" variant="brand" onclick="{!c.saveQual}" />
+                    <lightning:button label="Save(if no Experience)" iconName="utility:save" variant="brand" onclick="{!c.saveQualAndEnd}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+
+
+
+
+    <!--Add Experience-->
+    <aura:if isTrue="{!v.showBoxExp}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModelExp}">
+                        <lightning:icon iconName="utility:close" variant="bare" size="small" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+
+                    <div class="slds-page-header">
+                        <div class="slds-page-header__row">
+                          <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                              
+                                <span class="slds-icon_container" title="opportunity">
+                                 
+                                    <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                                      <img alt="male" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/Eicon.png'}" title="Male" />
+                                    </span>
+                  
+                                  <span class="slds-assistive-text">Candidate</span>
+                                </span>
+                              
+                              <div class="slds-media__body slds-text-align_left">
+                                <div class="slds-page-header__name">
+                                  <div class="slds-page-header__name-title ">
+                                    <h1>
+                                      <span class="slds-page-header__title slds-truncate" title="wraperList name"> &nbsp; New Experience</span>
+                                    </h1>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </header>
+
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <h1 style="font-size: 20px;">Personal Details <!--experienceRecord--></h1>
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Candidate ID" disabled="true" value="{!v.CandidateID}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" required="true" disabled="true" label="Candidate Name"
+                                value="{!v.candidateRecord.Name}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-1">
+                            <lightning:input type="text" label="Experience Name"
+                                value="{!v.experienceRecord.Name}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Comapny" value="{!v.experienceRecord.company__c}" />
+                        </div>
+                        
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="Position" value="{!v.experienceRecord.Position__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Date" label="To" value="{!v.experienceRecord.To__c}" />
+                        </div>
+
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="Date" label="From" value="{!v.experienceRecord.From__c}" />
+                        </div>
+
+                    </div>
+                </div>
+ 
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" iconName="utility:close" variant="neutral" onclick="{!c.hideModelExp}" />
+                    <lightning:button label="Add More" iconName="utility:add" variant="brand" onclick="{!c.newExp}" />
+                    <lightning:button label="Save" iconName="utility:save" variant="brand" onclick="{!c.saveExp}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

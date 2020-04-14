@@ -1,0 +1,17 @@
+<apex:page controller="getAccounts">
+    <apex:sectionHeader title="Account List"/>
+    <apex:form >
+        <apex:pageBlock >
+
+            <apex:pageBlockTable value="{!accountList}" var="a">
+                <apex:facet name="header">Account Id</apex:facet>
+                <apex:column value="{!a.id}"/>
+
+                <apex:facet name="header">Account Name</apex:facet>
+                <apex:column value="{!a.Name}"/>
+            </apex:pageBlockTable>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

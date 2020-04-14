@@ -1,0 +1,10 @@
+<template>
+ <div>
+    <lightning-input type="number" name="input1" label="Enter a number" accesskey="num" ></lightning-input>
+    <lightning-button-group>
+        <!--<lightning-button label="Save" icon-name="utility:save"></lightning-button>-->
+        <lightning-button-icon icon-name="utility:add" label="Plus" variant="border-filled" alternative-text="Add" onclick={add} ></lightning-button-icon>
+        <lightning-button-icon icon-name="utility:dash" label="Minus" variant="border-filled" alternative-text="Subtract" onclick={sub}></lightning-button-icon>
+    </lightning-button-group>
+</div>   
+</template>

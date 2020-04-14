@@ -1,0 +1,43 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" controller="CreateContactController" access="global" >
+    <aura:attribute name="showBox" type="Boolean" default="false" />
+    <aura:attribute name="contactRecord" type="Contact" default="{'sobjectType' : 'Contact'}" />
+    <lightning:button label="Create Contact" class="slds-size_1-of-1" iconName="utility:add" variant="brand" onclick="{!c.showModel}" />
+    
+    <aura:if isTrue="{!v.showBox}">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModel}">
+                        <lightning:icon iconName="utility:close" variant="bare" size="small" />
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">New Contact</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" label="First Name" value="{!v.contactRecord.FirstName}" />
+                        </div>
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="text" required="true" label="Last Name" value="{!v.contactRecord.LastName}" />
+                        </div>
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <c:CustomLookup label="Account" sobjectApi="Account" selectedId="{!v.contactRecord.AccountId}" />
+                        </div>
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="email" label="Email" value="{!v.contactRecord.Email}" />
+                        </div>
+                        <div class="slds-col slds-p-around_x-small slds-size_1-of-1 slds-large-size_1-of-2">
+                            <lightning:input type="phone" label="Phone" value="{!v.contactRecord.Phone}" />
+                        </div>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button label="Cancel" iconName="utility:close" variant="neutral" onclick="{!c.hideModel}" />
+                    <lightning:button label="Save" iconName="utility:save" variant="brand" onclick="{!c.save}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </aura:if>
+</aura:component>

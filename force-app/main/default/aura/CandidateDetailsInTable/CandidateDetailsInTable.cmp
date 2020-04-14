@@ -1,0 +1,246 @@
+<aura:component controller="Search_Apex">
+  <aura:attribute name="data" type="Candidate__c" />
+  <aura:attribute name="columns" type="List" />
+  <aura:attribute name="errors" type="Object" default="[]" />
+  <aura:attribute name="draftValues" type="Object" default="[]" />
+  <aura:attribute name="viewID" type="String" default="" />
+  <aura:attribute name="showBox" type="Boolean" default=""/>
+  <aura:attribute name="WrapperList" type="Search_Apex.wrapper[]" default="[]" />
+  <aura:attribute name="showBoxEdit" type="Boolean" default=""/>
+
+
+  <!--<aura:registerEvent name="EventModel" type="c:callChild"/>Event handler-->
+  <aura:handler event="c:callChild" Action="{!c.init}"/>
+
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <aura:handler event="force:refreshView" action="{!c.init}" />
+   
+  <!--Data table-->
+  <div style="height: 500px;">
+    <lightning:datatable aura:id="dtTable" columns="{!v.columns}" data="{!v.data}" keyField="Id" hideCheckboxColumn="true" errors="{!v.errors}"
+                draftValues="{!v.draftValues}" onsave="{!c.handleSaveEdition}" onrowaction="{!c.handleRowAction}" showRowNumberColumn="true"/>
+  </div>
+
+  <!--Details of the viewed Candidate-->
+  <aura:if isTrue="{!v.showBox}">
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+      <div class="slds-modal__container">
+        <aura:iteration items="{!v.WrapperList}" var="a">
+        <header class="slds-modal__header">
+          <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModel}">
+            <lightning:icon iconName="utility:close" variant="bare" size="small" />
+            <span class="slds-assistive-text">Close</span>
+        </button>
+       
+        <div class="slds-page-header">
+          <div class="slds-page-header__row">
+            <div class="slds-page-header__col-title">
+              <div class="slds-media">
+                
+                  <span class="slds-icon_container" title="opportunity">
+                    <aura:if isTrue="{!a.acc.Gender__c == 'Male'}">
+
+                      <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                        <img alt="male" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/mAvatar.png'}" title="Male" />
+                      </span>
+    
+                    <aura:set attribute="else">
+    
+                      <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                        <img alt="female" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/fAvatar.png'}" title="Female" />
+                      </span>
+    
+                    </aura:set>
+                  </aura:if>
+                    <span class="slds-assistive-text">Candidate</span>
+                  </span>
+                
+                <div class="slds-media__body slds-text-align_left">
+                  <div class="slds-page-header__name">
+                    <div class="slds-page-header__name-title ">
+                      <h1>
+                        <span class="slds-page-header__title slds-truncate" title="wraperList name"> &nbsp; {!a.acc.Name}</span>
+                      </h1>
+                    </div>
+                  </div>
+                  <br/>
+                  <p class="slds-page-header__name-meta"> &nbsp;&nbsp; {!a.acc.Phone__c}  •  {!a.acc.Email__c}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </header>
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+          
+          <div class="demo-only" style="width:30rem">
+            <article class="slds-tile slds-media">
+              <div class="slds-media__figure">
+                
+
+              </div>
+              <div class="slds-media__body">
+                <h3 class="slds-tile__title slds-truncate" title="Candidate Details">
+                  <a href="javascript:void(0);">{!a.acc.Name}</a>
+                </h3>
+                <div class="slds-tile__detail">
+                  <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Father's Name:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label">{!a.acc.Father_s_Name__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Mother's Name:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.Mother_s_Name__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Date Of Birth:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label">{!a.acc.DOB__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Gender:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.Gender__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Email:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label">{!a.acc.Email__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Phone:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.Phone__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Adhaar Number:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for first label">{!a.acc.Adhaar_Number__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Status:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.Status__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Address:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.Address__c}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">About Me:</dt>
+                    <dd class="slds-item_detail slds-truncate" title="Description for second label">{!a.acc.About_Me__c}</dd>
+                  </dl>
+                  <br/>
+
+                  <aura:iteration items="{!a.cont}" var="b">
+                      <div class="demo-only" style="width:30rem">
+                        <article class="slds-tile slds-media">
+                          <div class="slds-media__figure">
+                            <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
+                              <img alt="Qualification" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/Cicon.png'}" title="Qual" />
+                            </span>
+                          </div>
+                          <div class="slds-media__body">
+                            <h3 class="slds-tile__title slds-truncate" title="Course Details">
+                              <a href="javascript:void(0);">{!b.Course_Type__c}</a>
+                            </h3>
+                            <div class="slds-tile__detail">
+                              <dl class="slds-list_horizontal slds-wrap">
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Course:</dt>
+                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!b.Course__c}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Percent:</dt>
+                                <dd class="slds-item_detail slds-truncate" title="Description for second label">{!b.Percent__c}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Institution:</dt>
+                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!b.Institution__c}</dd>
+                                <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label"> Passing Year:</dt>
+                                <dd class="slds-item_detail slds-truncate" title="Description for first label">{!b.Year__c}</dd>
+                              </dl>
+                            </div>
+                          </div>
+                        </article>
+                      </div>
+                      <br/>
+                  </aura:iteration>
+                  <br/>
+
+                  <aura:iteration items="{!a.oppl}" var="c">
+                    <div class="demo-only" style="width:30rem">
+                      <article class="slds-tile slds-media">
+                        <div class="slds-media__figure">
+                          <span class="slds-avatar slds-avatar_circle slds-avatar_medium">
+                            <img alt="Experience" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/Eicon.png'}" title="Experience" />
+                          </span>
+                        </div>
+                        <div class="slds-media__body">
+                          <h3 class="slds-tile__title slds-truncate" title="Experience Details">
+                            <a href="javascript:void(0);">{!c.Position__c}</a>
+                          </h3>
+                          <div class="slds-tile__detail">
+                            <dl class="slds-list_horizontal slds-wrap">
+                              <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Company:</dt>
+                              <dd class="slds-item_detail slds-truncate" title="Description for first label">{!c.Company__c}</dd>
+                              <dt class="slds-item_label slds-text-color_weak slds-truncate" title="Second Label">Percent:</dt>
+                              <dd class="slds-item_detail slds-truncate" title="Description for second label">{!c.To__c}</dd>
+                              <dt class="slds-item_label slds-text-color_weak slds-truncate" title="First Label">Institution:</dt>
+                              <dd class="slds-item_detail slds-truncate" title="Description for first label">{!c.From__c}</dd>
+                            </dl>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  </aura:iteration>
+
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </aura:iteration>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+</aura:if>
+
+<aura:if isTrue="{!v.showBoxEdit}">
+
+  <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+        <header class="slds-modal__header">
+            <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideBoxEdit}">
+                <lightning:icon iconName="utility:close" variant="bare" size="small" />
+                <span class="slds-assistive-text">Close</span>
+            </button>
+            <div class="slds-page-header">
+              <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                  <div class="slds-media">
+                    
+                      <span class="slds-icon_container" title="opportunity">
+                       
+                          <span class="slds-avatar slds-avatar_circle slds-avatar_large">
+                            <img alt="male" src="{!$Resource.CandidateReg+'/CandidateReg/Photos/nAvatar.png'}" title="Male" />
+                          </span>
+        
+                        <span class="slds-assistive-text">Candidate</span>
+                      </span>
+                    
+                    <div class="slds-media__body slds-text-align_left">
+                      <div class="slds-page-header__name">
+                        <div class="slds-page-header__name-title ">
+                          <h1>
+                            <span class="slds-page-header__title slds-truncate" title="wraperList name"> &nbsp; Edit Candidate</span>
+                          </h1>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </header>
+
+        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+            <h1 style="font-size: 20px;">Personal Details</h1>
+
+              <lightning:recordEditForm aura:id="editRecordForm" recordId="{!v.viewID}"
+                        objectApiName="Candidate__c" onsubmit="{!c.handleSubmit}" onsuccess="{!c.hideBoxEdit}">
+              <lightning:messages />
+              <lightning:inputField fieldName="Name" />
+              <lightning:inputField fieldName="Father_s_Name__c" />
+              <lightning:inputField fieldName="Mother_s_Name__c" />
+              <lightning:inputField fieldName="DOB__c" />
+              <lightning:inputField fieldName="Gender__c" />
+              <lightning:inputField fieldName="Email__c" />
+              <lightning:inputField fieldName="Gender__c" />
+              <lightning:inputField fieldName="Phone__c" />
+              <lightning:inputField fieldName="Adhaar_Number__c" />
+              <lightning:inputField fieldName="Status__c" />
+              <lightning:inputField fieldName="Address__c" />
+              <lightning:inputField fieldName="About_Me__c" />
+              
+              <lightning:button disabled="{!v.disabled}" variant="brand" type="submit" name="save" label="Save" />
+          </lightning:recordEditForm>
+      
+        </div>
+    </div>
+  </section>
+  </aura:if>
+</aura:component>

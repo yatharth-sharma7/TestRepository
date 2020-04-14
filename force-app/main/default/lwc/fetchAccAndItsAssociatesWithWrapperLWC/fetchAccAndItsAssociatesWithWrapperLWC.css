@@ -1,0 +1,32 @@
+.opplTable{
+    border-style: double;
+}
+.opplTableHeader{
+    background-color: rgb(38, 123, 235);
+}
+.opplTableBody{
+    background-color: rgb(173, 196, 226);
+}
+
+.contTable{
+    border-style: double;
+}
+.contTableHeader{
+    background-color: rgb(38, 123, 235);
+}
+.contTableBody{
+    background-color: rgb(173, 196, 226);
+}
+
+.mainTable{
+    border-width: 3px;
+}
+.mainTableHeader{
+    background-color: rgb(38, 123, 235);
+}
+.mainTableBody{
+    background-color: rgb(255, 255, 255);
+}
+table, th, td {
+    border: 1px solid black;
+  }
